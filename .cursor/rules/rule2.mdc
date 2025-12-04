@@ -1,0 +1,73 @@
+# Rule 2: Import Organization
+
+## Principle
+Semua import statement HARUS berada di bagian atas file (setelah docstring module jika ada), dan TIDAK BOLEH berada di dalam fungsi, class, atau method.
+
+## Rules
+
+### ✅ CORRECT
+```python
+"""Module docstring."""
+import os
+import json
+from pathlib import Path
+from typing import Optional
+from PyQt6.QtCore import QObject, QThread
+
+
+class MyClass:
+    """Class definition."""
+    
+    def __init__(self):
+        """Constructor."""
+        pass
+    
+    def method(self):
+        """Method yang menggunakan imported modules."""
+        path = Path("file.txt")
+        return json.dumps({"key": "value"})
+```
+
+### ❌ INCORRECT
+```python
+"""Module docstring."""
+
+class MyClass:
+    def __init__(self):
+        import os  # ❌ Import di dalam method
+        path = os.getcwd()
+    
+    def method(self):
+        from pathlib import Path  # ❌ Import di dalam method
+        return Path("file.txt")
+
+def function():
+    import json  # ❌ Import di dalam function
+    return json.dumps({})
+```
+
+## Exception
+Import untuk type checking di runtime (conditional imports) dibolehkan jika:
+1. Ada dokumentasi yang jelas mengapa conditional
+2. Import hanya dilakukan sekali (di cache)
+
+Contoh yang dibolehkan:
+```python
+import os
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from PyQt6.QtCore import QObject  # Type hint only
+
+
+class MyClass:
+    """Class definition."""
+    pass
+```
+
+## Checklist
+- [ ] Semua import di atas file
+- [ ] Tidak ada import di dalam class
+- [ ] Tidak ada import di dalam method/function
+- [ ] Import diorganisir: standard library → third-party → local imports
+- [ ] Satu import per line (kecuali multiple dari module yang sama)

@@ -1,0 +1,83 @@
+# Cursor Rules untuk LinkedIn Project
+
+## Docstring Format
+
+Gunakan docstring **1 line saja** untuk semua fungsi dan class.
+
+### ✅ BENAR - 1 Line Docstring
+
+```python
+def connect_over_cdp(cdp_url: str = "http://localhost:9222"):
+    """Terhubung ke browser melalui Chrome DevTools Protocol (CDP)."""
+    # implementation
+```
+
+```python
+async def get_page(browser, page_index: int = 0):
+    """Dapatkan page dari browser yang terhubung via CDP."""
+    # implementation
+```
+
+```python
+class BrowserManager:
+    """Manager untuk handle browser connection dan pages."""
+    # implementation
+```
+
+### ❌ SALAH - Multi-line Docstring
+
+```python
+def connect_over_cdp(cdp_url: str = "http://localhost:9222"):
+    """
+    Terhubung ke browser melalui Chrome DevTools Protocol (CDP).
+    
+    Args:
+        cdp_url (str): URL CDP endpoint. Default: http://localhost:9222
+    
+    Returns:
+        browser: Instance browser Playwright yang terhubung ke CDP
+    """
+    # implementation
+```
+
+## Type Hints
+
+Gunakan type hints untuk parameter dan return value:
+
+```python
+async def connect_over_cdp(cdp_url: str = "http://localhost:9222") -> Browser:
+    """Terhubung ke browser melalui Chrome DevTools Protocol (CDP)."""
+```
+
+## Comments vs Docstring
+
+- **Docstring** (1 line): Untuk penjelasan umum fungsi
+- **Comments** (di dalam fungsi): Untuk penjelasan logic yang kompleks
+
+```python
+async def get_page(browser, page_index: int = 0) -> Optional[Page]:
+    """Dapatkan page dari browser yang terhubung via CDP."""
+    # Cek apakah ada context
+    if browser.contexts:
+        context = browser.contexts[0]
+        # Ambil pages dari context
+        pages = context.pages
+        
+        # Return page jika ada, atau buat baru
+        if pages and len(pages) > page_index:
+            return pages[page_index]
+        elif not pages:
+            return await context.new_page()
+    
+    return None
+```
+
+## Summary
+
+| Aspek | Rule |
+|-------|------|
+| Docstring | 1 line saja |
+| Format | `"""Deskripsi singkat."""` |
+| Type Hints | Wajib gunakan |
+| Multi-line docs | Gunakan comments instead |
+| Language | Bahasa Indonesia |

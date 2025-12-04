@@ -1,0 +1,5 @@
+playwright>=1.45.0
+python-dotenv>=1.0.0
+PyQt6>=6.0.0
+PyQt6-sip>=13.0.0
+

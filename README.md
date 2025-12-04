@@ -16,7 +16,7 @@ Aplikasi untuk automation LinkedIn login dengan PyQt6 dan Playwright, menangani 
 
 - **PyQt6** - GUI framework & threading
 - **Playwright** - Browser automation (sync API)
-- **Python 3.8+** - Core language
+- **Python 3.13.7** - Core language
 
 ## 🚀 Project Structure
 
@@ -42,7 +42,7 @@ LinkedIn/
 ## 🔧 Setup
 
 ### Prerequisites
-- Python 3.8+
+- Python 3.13.7+
 - Chrome/Chromium browser
 
 ### Installation
